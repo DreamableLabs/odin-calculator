@@ -52,10 +52,10 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-    const validOperators = '+-*/';
+    const validOperators = '+-x/';
 
     if (!validOperators.includes(operator)) {
-        alert('Invalid operator. Must be +, -, * or /.')
+        alert('Invalid operator. Must be +, -, x or /.')
         return;
     }
 
@@ -66,7 +66,7 @@ function operate(a, b, operator) {
         case '-':
             return subtract(a, b);
             break;
-        case '*':
+        case 'x':
             return multiply(a, b);
             break;
         case '/':
@@ -77,7 +77,7 @@ function operate(a, b, operator) {
 
 function respondToInput(e) {
     const numericalInputs = '0123456789';
-    const operatorInputs = '+-*/';
+    const operatorInputs = '+-x/';
     let input = e.target.innerText;
     if (numericalInputs.includes(input)) {
         if (waitingForNewOperand) {
