@@ -1,4 +1,7 @@
 // global constants and vars
+let firstOperand;
+let secondOperand;
+let operator;
 
 // functions
 function add(a, b) {
