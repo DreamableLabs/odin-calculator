@@ -6,7 +6,7 @@ let displayText;
 let display = document.querySelector('#display');
 let inputs = document.querySelector('#inputs');
 let waitingForNewOperand;
-const NUM_DECIMAL_PLACES = 9;
+const NUM_DECIMAL_PLACES = 5;
 const DIV_BY_ZERO_MESSAGE = 'LOL';
 
 // functions
