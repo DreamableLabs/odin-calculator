@@ -83,3 +83,18 @@ function respondToInput(e) {
 // main logic
 
 inputs.addEventListener('click', respondToInput);
+
+/* pseudocode for calculator logic
+
+There are two states that the calculator switches between:
+
+1. Clear - firstOperand: null, secondOperand: null
+2. Active - firstOperand: number, secondOperand: null
+
+If an operator (+, -, *, /, =) button is pressed then this 
+what happens in each of the two states:
+
+1. firstOperand set to display text => state 2.
+2. secondOperand set to display text, computation performed,
+firstOperand and display text set to result of computation
+=> state 1.
