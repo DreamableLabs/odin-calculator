@@ -7,6 +7,7 @@ let display = document.querySelector('#display');
 let inputs = document.querySelector('#inputs');
 let waitingForNewOperand;
 const NUM_DECIMAL_PLACES = 9;
+const DIV_BY_ZERO_MESSAGE = 'LOL';
 
 // functions
 function add(a, b) {
@@ -41,6 +42,10 @@ function divide(a, b) {
         alert('Invalid inputs. Inputs must be numerical.')
         return;
     }
+
+    if (b === 0) {
+        return DIV_BY_ZERO_MESSAGE;
+    }
     
     let result = a/b;
     return result.toFixed(NUM_DECIMAL_PLACES);
@@ -71,7 +76,6 @@ function operate(a, b, operator) {
 }
 
 function respondToInput(e) {
-    console.log(e.target.innerText);
     const numericalInputs = '0123456789';
     const operatorInputs = '+-*/';
     let input = e.target.innerText;
@@ -118,6 +122,8 @@ function getDisplayValue() {
         return value;
     } else {
         alert('Invalid input. Inputs must be finite integer values.');
+        resetCalculator();
+        return null;
     }
 }
 
