@@ -48,7 +48,7 @@ function divide(a, b) {
     }
     
     let result = a/b;
-    return result.toFixed(NUM_DECIMAL_PLACES);
+    return parseFloat(result.toFixed(NUM_DECIMAL_PLACES));
 }
 
 function operate(a, b, operator) {
@@ -117,7 +117,7 @@ function updateCalculatorState(op1, op2, operatorValue, displayText) {
 }
 
 function getDisplayValue() {
-    let value = parseInt(display.innerText);
+    let value = parseFloat(display.innerText);
     if (!isNaN(value) && isFinite(value)) {
         return value;
     } else {
