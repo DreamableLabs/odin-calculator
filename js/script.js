@@ -89,12 +89,11 @@ function respondToInput(e) {
     } else if (input === 'AC') {
         resetCalculator();
     } else if (operatorInputs.includes(input)) {
-        operator = input;
         if (firstOperand === null) {
-            updateCalculatorState(getDisplayValue(), null, operator, getDisplayValue())
+            updateCalculatorState(getDisplayValue(), null, input, getDisplayValue())
         } else {
             let result = operate(firstOperand, getDisplayValue(), operator);
-            updateCalculatorState(result, null, operator, result);
+            updateCalculatorState(result, null, input, result);
         }
     } else if (input === '=') {
         if (firstOperand != null && operator != null) {
