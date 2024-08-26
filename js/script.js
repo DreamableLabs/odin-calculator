@@ -40,4 +40,28 @@ function divide(a, b) {
     return a/b;
 }
 
+function operate(a, b, operator) {
+    const validOperators = '+-*/';
+
+    if (!validOperators.includes(operator)) {
+        alert('Invalid operator. Must be +, -, * or /.')
+        return;
+    }
+
+    switch(operator) {
+        case '+':
+            return add(a, b);
+            break;
+        case '-':
+            return subtract(a, b);
+            break;
+        case '*':
+            return multiply(a, b);
+            break;
+        case '/':
+            return divide(a, b);
+            break;
+    }
+}
+
 // main logic
