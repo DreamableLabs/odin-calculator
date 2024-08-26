@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.horizontal {
+    display: flex;
+}
+
+ul.vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#calculator {
+    height: 300px;
+    width: 150px;
+    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#inputs {
+    display: flex;
+}
+
+button {
+    width: 30px;
+    height: 50px;
+    margin: 2px;
+}
+
+#display {
+    background: cyan;
+    text-align: right;
+}
+
