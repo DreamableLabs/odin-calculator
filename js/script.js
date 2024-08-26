@@ -2,6 +2,9 @@
 let firstOperand;
 let secondOperand;
 let operator;
+let displayText;
+let display = document.querySelector('#display');
+let inputs = document.querySelector('#inputs');
 
 // functions
 function add(a, b) {
@@ -64,4 +67,19 @@ function operate(a, b, operator) {
     }
 }
 
+function respondToInput(e) {
+    console.log(e.target.innerText);
+    const numericalInputs = '0123456789';
+    let input = e.target.innerText;
+    if (numericalInputs.includes(input)) {
+        if (display.innerText === '0') {
+            display.innerText = input;
+        } else {
+            display.innerText += input;
+        }
+    } 
+}
+
 // main logic
+
+inputs.addEventListener('click', respondToInput);
