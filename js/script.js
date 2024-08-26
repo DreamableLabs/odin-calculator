@@ -5,6 +5,7 @@ let operator;
 let displayText;
 let display = document.querySelector('#display');
 let inputs = document.querySelector('#inputs');
+let waitingForNewOperand;
 
 // functions
 function add(a, b) {
@@ -70,19 +71,58 @@ function operate(a, b, operator) {
 function respondToInput(e) {
     console.log(e.target.innerText);
     const numericalInputs = '0123456789';
+    const operatorInputs = '+-*/';
     let input = e.target.innerText;
     if (numericalInputs.includes(input)) {
-        if (display.innerText === '0') {
+        if (waitingForNewOperand) {
             display.innerText = input;
+            waitingForNewOperand = false;
         } else {
             display.innerText += input;
         }
-    } 
+    } else if (input === 'AC') {
+        resetCalculator();
+    } else if (operatorInputs.includes(input)) {
+        operator = input;
+        if (firstOperand === null) {
+            updateCalculatorState(getDisplayValue(), null, operator, getDisplayValue())
+        } else {
+            let result = operate(firstOperand, getDisplayValue(), operator);
+            updateCalculatorState(result, null, operator, result);
+        }
+    } else if (input === '=') {
+        if (firstOperand != null && operator != null) {
+            let result = operate(firstOperand, getDisplayValue(), operator);
+            updateCalculatorState(null, null, null, result);
+        }
+    }
+}
+
+function resetCalculator() {
+    updateCalculatorState(null, null, null, '0');
+} 
+
+function updateCalculatorState(op1, op2, operatorValue, displayText) {
+    firstOperand = op1;
+    secondOperand = op2;
+    operator = operatorValue;
+    display.innerText = displayText;
+    waitingForNewOperand = true;
+}
+
+function getDisplayValue() {
+    let value = parseInt(display.innerText);
+    if (!isNaN(value) && isFinite(value)) {
+        return value;
+    } else {
+        alert('Invalid input. Inputs must be finite integer values.');
+    }
 }
 
 // main logic
 
 inputs.addEventListener('click', respondToInput);
+resetCalculator();
 
 /* pseudocode for calculator logic
 
@@ -97,4 +137,4 @@ what happens in each of the two states:
 1. firstOperand set to display text => state 2.
 2. secondOperand set to display text, computation performed,
 firstOperand and display text set to result of computation
-=> state 1.
+=> state 1.*/
