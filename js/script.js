@@ -172,35 +172,7 @@ function formatDisplayValue(value) {
     }
 }
 
-/* pseudocode for handling setDisplayValue
-
-if the value has more than 9 digits, convert to 
-scientific notation.
-
-if the value has fewer than 9 digits, calculate
-the remaining digits that can be used and allocate 
-those to the decimal place digits. 
-
-*/
-
-
-
 // main logic
 
 inputs.addEventListener('click', respondToInput);
 resetCalculator();
-
-/* pseudocode for calculator logic
-
-There are two states that the calculator switches between:
-
-1. Clear - firstOperand: null, secondOperand: null
-2. Active - firstOperand: number, secondOperand: null
-
-If an operator (+, -, *, /, =) button is pressed then this 
-what happens in each of the two states:
-
-1. firstOperand set to display text => state 2.
-2. secondOperand set to display text, computation performed,
-firstOperand and display text set to result of computation
-=> state 1.*/
