@@ -47,21 +47,33 @@ button {
     width: 60px;
     height: 60px;
     border-radius: 30px;
-    background-color: darkgray;
+    background-color: rgb(55, 55, 55);
     border: 0px;
     margin: 4px;
     color: white;
-    font-weight: 800;
-    font-size: 24px;
+    font-weight: 500;
+    font-size: 32px;
+}
+
+button#zero {
+    width: 128px;
+    text-align: left;
+    padding-left: 20px;
 }
 
 button.operator {
     background-color: orange;
 }
 
+button.function {
+    background-color: darkgray;
+    color: black;
+}
+
 #display {
     text-align: right;
-    font-size: 72px;
+    font-size: 48px;
+    font-weight: 100;
     color: white;
 }
 
