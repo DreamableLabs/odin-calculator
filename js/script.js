@@ -83,7 +83,9 @@ function respondToInput(e) {
             setDisplayValue(input);
             waitingForNewOperand = false;
         } else {
-            setDisplayValue(getDisplayValue() + input);
+            if (display.innerText.length < TOTAL_DISPLAY_DIGITS) {
+                setDisplayValue(getDisplayValue() + input);
+            }
         }
     } else if (input === 'AC') {
         resetCalculator();
@@ -149,7 +151,6 @@ function setDisplayValue(value) {
             // subtract 1 from remainingDisplayDigits since the base has 1 digit before the fixed point decimals
             let base = (parseFloat(intPart)/Math.pow(10, intDigits-1)).toFixed(remainingDisplayDigits-1);
             display.innerText = isNegative ? `-${base}${powerTen}` : `${base}${powerTen}`;
-            console.log(`${base}${powerTen}`)
         } else {
             if (valueParts.length === 1) {
                 // value is an integer
