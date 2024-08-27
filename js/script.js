@@ -80,11 +80,11 @@ function respondToInput(e) {
     let input = e.target.innerText;
     if (numericalInputs.includes(input)) {
         if (waitingForNewOperand) {
-            setDisplayValue(input);
+            setDisplayText(input);
             waitingForNewOperand = false;
         } else {
             if (display.innerText.length < TOTAL_DISPLAY_DIGITS) {
-                setDisplayValue(getDisplayValue() + input);
+                setDisplayText(display.innerHTML + input);
             }
         }
     } else if (input === 'AC') {
@@ -109,6 +109,15 @@ function respondToInput(e) {
         let value = getDisplayValue();
         value /= 100;
         setDisplayValue(value);
+    } else if (input === '.') {
+        if (waitingForNewOperand) {
+            setDisplayText('0.');
+            waitingForNewOperand = false;
+        } else {
+            if (display.innerText.length < TOTAL_DISPLAY_DIGITS && !display.innerText.includes('.')) {
+                setDisplayText(getDisplayValue() + input);
+            }
+        }
     }
 }
 
@@ -135,6 +144,10 @@ function getDisplayValue() {
     }
 }
 
+function setDisplayText(text) {
+    display.innerText = text;
+}
+
 function setDisplayValue(value) {
     if (value === DIV_BY_ZERO_MESSAGE) {
         display.innerText = DIV_BY_ZERO_MESSAGE;
@@ -152,9 +165,7 @@ function formatDisplayValue(value) {
     let powerTen = isScientificNotation ? 'e' + value.toString().split('e').slice(-1) : '';
     // one display digit needed for negative sign and one needed for ones digit in base
     let fixedPointDecimalDigits = isNegative ? TOTAL_DISPLAY_DIGITS - powerTen.length - 2 : TOTAL_DISPLAY_DIGITS - powerTen.length - 1;
-    if (parseFloat(base) === 0) {
-        console.log('hell');
-    }
+
     if (isScientificNotation) {
         return parseFloat(base).toFixed(fixedPointDecimalDigits).toString() + powerTen;
     } else {
