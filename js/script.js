@@ -6,7 +6,7 @@ let displayText;
 let display = document.querySelector('#display');
 let inputs = document.querySelector('#inputs');
 let waitingForNewOperand;
-const NUM_DECIMAL_PLACES = 5;
+const TOTAL_DISPLAY_DIGITS = 9;
 const DIV_BY_ZERO_MESSAGE = 'LOL';
 
 // functions
@@ -47,8 +47,7 @@ function divide(a, b) {
         return DIV_BY_ZERO_MESSAGE;
     }
     
-    let result = a/b;
-    return parseFloat(result.toFixed(NUM_DECIMAL_PLACES));
+    return parseFloat(a/b);
 }
 
 function operate(a, b, operator) {
@@ -81,10 +80,10 @@ function respondToInput(e) {
     let input = e.target.innerText;
     if (numericalInputs.includes(input)) {
         if (waitingForNewOperand) {
-            display.innerText = input;
+            setDisplayValue(input);
             waitingForNewOperand = false;
         } else {
-            display.innerText += input;
+            setDisplayValue(getDisplayValue() + input);
         }
     } else if (input === 'AC') {
         resetCalculator();
@@ -119,7 +118,7 @@ function updateCalculatorState(op1, op2, operatorValue, displayText) {
     firstOperand = op1;
     secondOperand = op2;
     operator = operatorValue;
-    display.innerText = displayText;
+    setDisplayValue(displayText);
     waitingForNewOperand = true;
 }
 
@@ -133,6 +132,49 @@ function getDisplayValue() {
         return null;
     }
 }
+
+function setDisplayValue(value) {
+    if (value === DIV_BY_ZERO_MESSAGE) {
+        display.innerText = DIV_BY_ZERO_MESSAGE;
+    } else {
+        let valueParts = value.toString().split('.');
+        const isNegative = valueParts[0].startsWith('-');
+        let intPart = isNegative ? valueParts[0].slice(1) : valueParts[0];
+        let intDigits = intPart.length;
+
+        if (intDigits > TOTAL_DISPLAY_DIGITS) {
+            // need to display in scientific notation
+            let powerTen = `e${intDigits-1}`;
+            let remainingDisplayDigits = TOTAL_DISPLAY_DIGITS - powerTen.length;
+            // subtract 1 from remainingDisplayDigits since the base has 1 digit before the fixed point decimals
+            let base = (parseFloat(intPart)/Math.pow(10, intDigits-1)).toFixed(remainingDisplayDigits-1);
+            display.innerText = isNegative ? `-${base}${powerTen}` : `${base}${powerTen}`;
+            console.log(`${base}${powerTen}`)
+        } else {
+            if (valueParts.length === 1) {
+                // value is an integer
+                display.innerText = value;
+            } else {
+                // need to convert to fixed point
+                let fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - intDigits;
+                display.innerText = parseFloat(value).toFixed(fixedPointDecimalDigits);
+            }
+        }
+    }
+}
+
+/* pseudocode for handling setDisplayValue
+
+if the value has more than 9 digits, convert to 
+scientific notation.
+
+if the value has fewer than 9 digits, calculate
+the remaining digits that can be used and allocate 
+those to the decimal place digits. 
+
+*/
+
+
 
 // main logic
 
