@@ -157,8 +157,17 @@ function setDisplayValue(value) {
                 display.innerText = value;
             } else {
                 // need to convert to fixed point
-                let fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - intDigits;
-                display.innerText = parseFloat(value).toFixed(fixedPointDecimalDigits);
+                const isScientificNotation = value.toString().includes('e');
+                let fixedPointDecimalDigits;
+                if (isScientificNotation) {
+                    powerTen = 'e' + value.toString().split('e').slice(-1);
+                    base = value.toString().split('e')[0];
+                    fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - intDigits - powerTen.length;
+                    display.innerText = parseFloat(base).toFixed(fixedPointDecimalDigits).toString() + powerTen;
+                } else {
+                    fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - intDigits;
+                    display.innerText = parseFloat(value).toFixed(fixedPointDecimalDigits);
+                }
             }
         }
     }
