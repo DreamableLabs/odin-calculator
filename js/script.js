@@ -104,6 +104,10 @@ function respondToInput(e) {
         let value = getDisplayValue();
         value *= -1;
         display.innerText = value;
+    } else if (input === '%') {
+        let value = getDisplayValue();
+        value /= 100;
+        display.innerText = value;
     }
 }
 
