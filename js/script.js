@@ -100,6 +100,10 @@ function respondToInput(e) {
             let result = operate(firstOperand, getDisplayValue(), operator);
             updateCalculatorState(null, null, null, result);
         }
+    } else if (input === '+/-') {
+        let value = getDisplayValue();
+        value *= -1;
+        display.innerText = value;
     }
 }
 
