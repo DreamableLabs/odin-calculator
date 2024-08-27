@@ -139,36 +139,35 @@ function setDisplayValue(value) {
     if (value === DIV_BY_ZERO_MESSAGE) {
         display.innerText = DIV_BY_ZERO_MESSAGE;
     } else {
-        let valueParts = value.toString().split('.');
-        const isNegative = valueParts[0].startsWith('-');
-        let intPart = isNegative ? valueParts[0].slice(1) : valueParts[0];
-        let intDigits = intPart.length;
+        display.innerText = formatDisplayValue(value);
+    }
+}
 
-        if (intDigits > TOTAL_DISPLAY_DIGITS) {
-            // need to display in scientific notation
-            let powerTen = `e${intDigits-1}`;
-            let remainingDisplayDigits = TOTAL_DISPLAY_DIGITS - powerTen.length;
-            // subtract 1 from remainingDisplayDigits since the base has 1 digit before the fixed point decimals
-            let base = (parseFloat(intPart)/Math.pow(10, intDigits-1)).toFixed(remainingDisplayDigits-1);
-            display.innerText = isNegative ? `-${base}${powerTen}` : `${base}${powerTen}`;
+function formatDisplayValue(value) {
+    value = parseFloat(value);
+    const isScientificNotation = value.toString().includes('e');
+    const isNegative = value.toString().startsWith('-');
+    let base = value.toString().split('e')[0];
+    let baseInt = base.split('.')[0];
+    let powerTen = isScientificNotation ? 'e' + value.toString().split('e').slice(-1) : '';
+    // one display digit needed for negative sign and one needed for ones digit in base
+    let fixedPointDecimalDigits = isNegative ? TOTAL_DISPLAY_DIGITS - powerTen.length - 2 : TOTAL_DISPLAY_DIGITS - powerTen.length - 1;
+    if (parseFloat(base) === 0) {
+        console.log('hell');
+    }
+    if (isScientificNotation) {
+        return parseFloat(base).toFixed(fixedPointDecimalDigits).toString() + powerTen;
+    } else {
+        let baseIntDigits = isNegative ? baseInt.length - 1 : baseInt.length;
+        if (baseIntDigits > TOTAL_DISPLAY_DIGITS) {
+            //convert to scientific notation
+            powerTen = `e${baseIntDigits-1}`;
+            fixedPointDecimalDigits = isNegative ? TOTAL_DISPLAY_DIGITS - powerTen.length - 2 : TOTAL_DISPLAY_DIGITS - powerTen.length - 1;
+            base = (parseFloat(base)/Math.pow(10, baseIntDigits-1)).toFixed(fixedPointDecimalDigits);
+            return base.toString() + powerTen;
         } else {
-            if (valueParts.length === 1) {
-                // value is an integer
-                display.innerText = value;
-            } else {
-                // need to convert to fixed point
-                const isScientificNotation = value.toString().includes('e');
-                let fixedPointDecimalDigits;
-                if (isScientificNotation) {
-                    powerTen = 'e' + value.toString().split('e').slice(-1);
-                    base = value.toString().split('e')[0];
-                    fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - intDigits - powerTen.length;
-                    display.innerText = parseFloat(base).toFixed(fixedPointDecimalDigits).toString() + powerTen;
-                } else {
-                    fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - intDigits;
-                    display.innerText = parseFloat(value).toFixed(fixedPointDecimalDigits);
-                }
-            }
+            fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - baseIntDigits;
+            return parseFloat(value.toFixed(fixedPointDecimalDigits));
         }
     }
 }
