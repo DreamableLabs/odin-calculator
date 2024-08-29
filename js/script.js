@@ -5,6 +5,7 @@ let operator;
 let displayText;
 let display = document.querySelector('#display');
 let inputs = document.querySelector('#inputs');
+let operators = document.querySelectorAll('button.operator');
 let waitingForNewOperand;
 const TOTAL_DISPLAY_DIGITS = 9;
 const DIV_BY_ZERO_MESSAGE = 'LOL';
@@ -129,6 +130,7 @@ function updateCalculatorState(op1, op2, operatorValue, displayText) {
     firstOperand = op1;
     secondOperand = op2;
     operator = operatorValue;
+    setActiveOperator(operator);
     setDisplayValue(displayText);
     waitingForNewOperand = true;
 }
@@ -179,6 +181,16 @@ function formatDisplayValue(value) {
         } else {
             fixedPointDecimalDigits = TOTAL_DISPLAY_DIGITS - baseIntDigits;
             return parseFloat(value.toFixed(fixedPointDecimalDigits));
+        }
+    }
+}
+
+function setActiveOperator(activeOperator) {
+    for (op of operators) {
+        if (op.innerText === activeOperator) {
+            op.className = 'operator active';
+        } else {
+            op.className = 'operator';
         }
     }
 }

@@ -65,6 +65,11 @@ button.operator {
     background-color: orange;
 }
 
+button.operator.active {
+    background-color: white;
+    color: orange;
+}
+
 button.function {
     background-color: darkgray;
     color: black;
