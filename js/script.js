@@ -5,6 +5,7 @@ let operator;
 let displayText;
 let display = document.querySelector('#display');
 let inputs = document.querySelector('#inputs');
+let buttons = document.querySelectorAll('button');
 let operators = document.querySelectorAll('button.operator');
 let waitingForNewOperand;
 const TOTAL_DISPLAY_DIGITS = 9;
@@ -195,7 +196,20 @@ function setActiveOperator(activeOperator) {
     }
 }
 
+function brightenColor(e) {
+    e.target.classList.add('brightened');
+}
+
+function darkenColor(e) {
+    e.target.classList.remove('brightened');
+}
+
 // main logic
 
 inputs.addEventListener('click', respondToInput);
+buttons.forEach(button => {
+    button.addEventListener('mousedown', brightenColor);
+    button.addEventListener('mouseup', darkenColor);
+    button.addEventListener('mouseleave', darkenColor);
+});
 resetCalculator();

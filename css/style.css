@@ -47,12 +47,17 @@ button {
     width: 60px;
     height: 60px;
     border-radius: 30px;
-    background-color: rgb(55, 55, 55);
+    background-color: hsl(0, 0%, 22%);
     border: 0px;
     margin: 4px;
     color: white;
     font-weight: 500;
     font-size: 32px;
+    transition: background-color 0.3s ease;
+}
+
+button.brightened {
+    background-color: hsl(0, 0%, 42%);
 }
 
 button#zero {
@@ -62,17 +67,25 @@ button#zero {
 }
 
 button.operator {
-    background-color: orange;
+    background-color: hsl(39, 100%, 50%);
+}
+
+button.operator.brightened {
+    background-color: hsl(39, 100%, 70%);
 }
 
 button.operator.active {
     background-color: white;
-    color: orange;
+    color: hsl(39, 100%, 50%);
 }
 
 button.function {
-    background-color: darkgray;
+    background-color: hsl(0, 0%, 66%);
     color: black;
+}
+
+button.function.brightened {
+    background-color: hsl(0, 0%, 86%);
 }
 
 #display {
