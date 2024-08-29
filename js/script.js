@@ -189,9 +189,9 @@ function formatDisplayValue(value) {
 function setActiveOperator(activeOperator) {
     for (op of operators) {
         if (op.innerText === activeOperator) {
-            op.className = 'operator active';
+            op.classList.add('active');
         } else {
-            op.className = 'operator';
+            op.classList.remove('active');
         }
     }
 }
