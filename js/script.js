@@ -1,7 +1,6 @@
 // global constants and vars
 const display = document.querySelector('#display');
 const inputs = document.querySelector('#inputs');
-const buttons = document.querySelectorAll('button');
 const operators = document.querySelectorAll('button.operator');
 const TOTAL_DISPLAY_DIGITS = 9;
 const DIV_BY_ZERO_MESSAGE = 'LOL';
@@ -197,19 +196,21 @@ function setActiveOperator(activeOperator) {
 }
 
 function highlightButton(e) {
-    e.target.classList.add('brightened');
+    if (e.target.tagName === 'BUTTON') {
+        e.target.classList.add('brightened');
+    }
 }
 
 function resetButtonHighlight(e) {
-    e.target.classList.remove('brightened');
+    if (e.target.tagName === 'BUTTON') {
+        e.target.classList.remove('brightened');
+    }
 }
 
 // main logic
 
 inputs.addEventListener('click', respondToInput);
-buttons.forEach(button => {
-    button.addEventListener('mousedown', highlightButton);
-    button.addEventListener('mouseup', resetButtonHighlight);
-    button.addEventListener('mouseleave', resetButtonHighlight);
-});
+inputs.addEventListener('mousedown', highlightButton);
+inputs.addEventListener('mouseup', resetButtonHighlight);
+inputs.addEventListener('mouseleave', resetButtonHighlight);
 resetCalculator();
