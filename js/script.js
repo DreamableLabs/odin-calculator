@@ -197,11 +197,11 @@ function setActiveOperator(activeOperator) {
     }
 }
 
-function brightenColor(e) {
+function highlightButton(e) {
     e.target.classList.add('brightened');
 }
 
-function darkenColor(e) {
+function resetButtonHighlight(e) {
     e.target.classList.remove('brightened');
 }
 
@@ -209,8 +209,8 @@ function darkenColor(e) {
 
 inputs.addEventListener('click', respondToInput);
 buttons.forEach(button => {
-    button.addEventListener('mousedown', brightenColor);
-    button.addEventListener('mouseup', darkenColor);
-    button.addEventListener('mouseleave', darkenColor);
+    button.addEventListener('mousedown', highlightButton);
+    button.addEventListener('mouseup', resetButtonHighlight);
+    button.addEventListener('mouseleave', resetButtonHighlight);
 });
 resetCalculator();
