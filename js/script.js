@@ -1,15 +1,16 @@
 // global constants and vars
+const display = document.querySelector('#display');
+const inputs = document.querySelector('#inputs');
+const buttons = document.querySelectorAll('button');
+const operators = document.querySelectorAll('button.operator');
+const TOTAL_DISPLAY_DIGITS = 9;
+const DIV_BY_ZERO_MESSAGE = 'LOL';
+
 let firstOperand;
 let secondOperand;
 let operator;
 let displayText;
-let display = document.querySelector('#display');
-let inputs = document.querySelector('#inputs');
-let buttons = document.querySelectorAll('button');
-let operators = document.querySelectorAll('button.operator');
 let waitingForNewOperand;
-const TOTAL_DISPLAY_DIGITS = 9;
-const DIV_BY_ZERO_MESSAGE = 'LOL';
 
 // functions
 function add(a, b) {
