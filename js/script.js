@@ -59,26 +59,21 @@ function divide(a, b) {
 
 function operate(a, b, operator) {
     const validOperators = '+-x/';
+    const operations = {
+        '+': add,
+        '-': subtract,
+        'x': multiply,
+        '/': divide
+    };
 
-    if (!validOperators.includes(operator)) {
+    const operation = operations[operator];
+
+    if (!operation) {
         alert('Invalid operator. Must be +, -, x or /.')
         return;
     }
 
-    switch(operator) {
-        case '+':
-            return add(a, b);
-            break;
-        case '-':
-            return subtract(a, b);
-            break;
-        case 'x':
-            return multiply(a, b);
-            break;
-        case '/':
-            return divide(a, b);
-            break;
-    }
+    return operation(a, b);
 }
 
 function respondToInput(e) {
