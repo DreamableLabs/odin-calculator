@@ -13,44 +13,48 @@ let displayText;
 let waitingForNewOperand;
 
 // functions
-function add(a, b) {
+function validateNumericalInputs(a, b) {
     if (!(typeof(a) === 'number') || !(typeof(b) === 'number')) {
         alert('Invalid inputs. Inputs must be numerical.')
+        return false;
+    }
+    return true;
+}
+
+function add(a, b) {
+    if (validateNumericalInputs(a, b)) {
+        return a+b;
+    } else {
         return;
     }
-    
-    return a+b;
 }
 
 function subtract(a, b) {
-    if (!(typeof(a) === 'number') || !(typeof(b) === 'number')) {
-        alert('Invalid inputs. Inputs must be numerical.')
+    if (validateNumericalInputs(a, b)) {
+        return a-b;
+    } else {
         return;
     }
-    
-    return a-b;
 }
 
 function multiply(a, b) {
-    if (!(typeof(a) === 'number') || !(typeof(b) === 'number')) {
-        alert('Invalid inputs. Inputs must be numerical.')
+    if (validateNumericalInputs(a, b)) {
+        return a*b;
+    } else {
         return;
     }
-    
-    return a*b;
 }
 
 function divide(a, b) {
-    if (!(typeof(a) === 'number') || !(typeof(b) === 'number')) {
-        alert('Invalid inputs. Inputs must be numerical.')
+    if (validateNumericalInputs(a, b)) {
+        if (b === 0) {
+            return DIV_BY_ZERO_MESSAGE;
+        } else {
+            return parseFloat(a/b);
+        }
+    } else {
         return;
     }
-
-    if (b === 0) {
-        return DIV_BY_ZERO_MESSAGE;
-    }
-    
-    return parseFloat(a/b);
 }
 
 function operate(a, b, operator) {
